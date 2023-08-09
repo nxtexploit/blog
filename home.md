@@ -1,4 +1,4 @@
 ---
 title: Home
-permalink: /../../
+permalink: https://nxtexploit.com
 ---
