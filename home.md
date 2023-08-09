@@ -1,4 +1,8 @@
 ---
 title: Home
-permalink: https://nxtexploit.com
 ---
+
+<script>
+  // Redirect to home page
+window.location.href = "https://nxtexploit.com";
+</script>
