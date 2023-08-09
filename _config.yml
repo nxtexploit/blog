@@ -3,7 +3,7 @@ title:       nxtexploit.com
 email:       nxtexploit@gmail.com
 author:      Aziz Al Aman
 description: "Cyber Security, Bug Bounties, CTF"
-baseurl:     ""
+baseurl:     "https://nxtexploit.com/blog"
 url:         "https://nxtexploit.com/blog"
 date_format: "%b %-d, %Y"
 header_pages: 
