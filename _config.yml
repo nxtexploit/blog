@@ -7,7 +7,7 @@ baseurl:     "blog/"
 url:         "https://nxtexploit.com/blog/"
 date_format: "%b %-d, %Y"
 header_pages: 
- - home.md
+ - home.html
  - about.md
  - contact.html
 
