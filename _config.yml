@@ -8,6 +8,7 @@ url:         "https://nxtexploit.com"
 date_format: "%b %-d, %Y"
 header_pages: 
  - home.html
+ - blog.md
  - about.md
  - contact.html
 
