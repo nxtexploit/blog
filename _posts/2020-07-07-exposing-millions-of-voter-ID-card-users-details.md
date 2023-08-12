@@ -9,8 +9,7 @@ tags: [IDOR, ATO]
 
 
 
-![](/blog/images/voter.webp)
-
+![](https://i.imgur.com/MYxGiFO.png)
 
 
 *Hi, Everyone. hope you’re well. I’m [Aziz](https://twitter.com/nxtexploit). Through this write-up, I will share some security issues I’ve found on the official Voter ID card maintaining platform [http://nvsp.in](https://nvsp.in). I was filling out a correction form for my mom’s card, I’m not really interested in finding bugs on gov websites :`) that moment [burpsuite ](https://portswigger.net/burp/documentation/desktop/penetration-testing)was running in the background and I thought let's have a try. After spending half an hour I found some critical issues that I’m going to share. All these issues are already fixed by the government.*
