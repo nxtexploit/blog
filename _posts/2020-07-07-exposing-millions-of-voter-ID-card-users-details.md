@@ -101,6 +101,8 @@ Now I have valid Voter IDs of random persons then, I added these IDs with my pro
 
 ![**Extracted details of a random Person**](https://cdn-images-1.medium.com/max/2732/1*6izoRB4cWjN5zjdZTDYdJg.png)
 
+---
+
 * ## **Account takeover (OTP bypass)**
 
 On the profile details updating section I was trying to add another user's number. So I created another account for it. But there was an OTP implanted there, and I tried to brute-force it but it didn’t work :( I remember reading an article last year, you can read it **[here](https://infosecwriteups.com/how-i-hacked-into-indias-top-matrimonial-website-and-earned-amazon-gift-card-worth-10k-inr-2a0b376219fa)**, where the author just added 0 after intercepting the request. And I did the same thing here on OTP parameter and it worked :)
@@ -113,6 +115,8 @@ After bypassing I thought it just can register the victim’s number then I’ll
 
 ![](https://cdn-images-1.medium.com/max/2740/1*az1-jwdyMLK1pOLWbA6ghA.png)
 
+---
+
 * ## **Delete/remove any random user’s Voter ID card Permanently (Logic flaw)**
 
 From the 1st bug, we can get and add any random user’s Voter ID to our account, From that on the home page there is an option for “Deletion of Enrolment”. And nothing to be needed after an attacker added any random Voter ID on his profile section. then he can easily delete any random user’s Voter ID permanently.
@@ -121,10 +125,9 @@ From the 1st bug, we can get and add any random user’s Voter ID to our account
 
 I reported these three issues to [vdisclose@cert-in.org.in](https://www.cert-in.org.in/VulnerIncident.jsp) and they fixed these issues.
 
-I hope you liked this article, If you have any questions then you can dm me on Twitter: [https://twitter.com/nxtexploit](https://twitter.com/nxtexploit)
+I hope you liked this article, If you have any questions then you can dm me on [Twitter](https://twitter.com/nxtexploit).
 
 Thanks for reading,
 
-regards,
-
-**Aziz**
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nxtexploit)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/nxtexploit)
