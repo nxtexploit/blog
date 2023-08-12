@@ -15,28 +15,50 @@ tags: [IDOR, ATO]
 *Hi, Everyone. hope you’re well. I’m [Aziz](https://twitter.com/nxtexploit). Through this write-up, I will share some security issues I’ve found on the official Voter ID card maintaining platform [http://nvsp.in](https://nvsp.in). I was filling out a correction form for my mom’s card, I’m not really interested in finding bugs on gov websites :`) that moment [burpsuite ](https://portswigger.net/burp/documentation/desktop/penetration-testing)was running in the background and I thought let's have a try. After spending half an hour I found some critical issues that I’m going to share. All these issues are already fixed by the government.*
 
 In India, a [Voter ID](https://www.google.com/search?q=what+is+voter+ID+%28india%29) card is an identity document issued by the Election Commission of India to adult domiciles of India who have reached the age of 18, which primarily serves as an identity proof for Indian citizens while casting their ballot in the country’s municipal, state, and national elections. More than **780 million** Voter IDs are active at present.
-
+---
 <p align="center"><h2>Bruteforcing valid Voter IDs and extracting details (IDOR / BOLA)</h2></p>
 
 While registering a new account it shows two options “I have ``EPIC`` number” and “I don’t have `EPIC` number”. `EPIC` stands for Electors Photo Identification Card and the `EPIC` number is nothing but Voter ID no. If we chose we don’t have a Voter ID number then they will give you an option to add after registering on the portal. After registration, I tried to add any random `EPIC` no. with my account but it show it's not valid. So I sent that HTTP request to burp intruder for [brute-forcing](https://en.wikipedia.org/wiki/Brute-force_attack).
 
-![](https://cdn-images-1.medium.com/max/2728/1*SKG6_nhMm0PkRkRXJjK2yg.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2728/1*SKG6_nhMm0PkRkRXJjK2yg.png">
+</p>
+
 
 A Voter ID also known as `EPIC` number is an alphanumerical ID, it contains three Alphabets at starting and seven numbers i.e. `WRI2345678`, `RDH2345678`, `DTN2345678`, `YCV2345678`, `NLN2345678`, `XMB2345678`, etc. These three alphabets are Not random alphabets, you can find similar IDs with similar these three alphabets in beginning but the rest seven digits are different.
 
-![](https://cdn-images-1.medium.com/max/2000/1*oCiejaOMRmwdEpIRzi27PQ.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2000/1*oCiejaOMRmwdEpIRzi27PQ.png">
+</p>
 
 I added the payload position on these seven-digit numbers on `Epic_no=` parameter i.e `Epic_no=WRI$2345678$`  (as you can see in the below screenshot.)
 
-![Adding payload position](https://cdn-images-1.medium.com/max/2236/1*xz61EAZwEhSWlsDpMkJSSw.png)
+
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2236/1*xz61EAZwEhSWlsDpMkJSSw.png">
+</p>
+<p align="center">
+  <strong>Adding payload position</strong></p>
+</p>
+
 
 Surprisingly there is no limitation implemented in the backend and I was able to send **unlimited requests** without getting blocked by firewall. As a result backend server responding 302 redirections for every valid voter ID. (As shown in the screenshot below)
 
-![responding 302 for every valid voter ID](https://cdn-images-1.medium.com/max/2740/1*dLe_eyFiPf9amQz0o50meQ.png)
+
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2740/1*dLe_eyFiPf9amQz0o50meQ.png">
+</p>
+<p align="center">
+  <strong>responding 302 for every valid voter ID</strong></p>
+</p>
+
 
 Then I wrote a [python script](https://github.com/nxtexploit/Voter-ID-bruteforcer/blob/main/Voter-ID-bruteforcer.py) that will brute force the values and give output all valid voter_IDs for me.
 
-![](https://cdn-images-1.medium.com/max/2000/1*DA8ghQIWnJlNZty0OK6oEA.gif)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2000/1*DA8ghQIWnJlNZty0OK6oEA.gif">
+</p>
+
 
 ```python
 
@@ -99,29 +121,59 @@ print(f'\n\nFinished in {round(finish-start, 2)} second(s)\n')
 
 Now I have valid Voter IDs of random persons then, I added these IDs with my profile under “[/Account/MyProfile](https://www.nvsp.in/Account/MyProfile)”. Then there is an option under the “/[forms](https://www.nvsp.in/Forms)/”section which is **form001** and this form is already filled with **Name, father’s name, address, Date of birth, etc. **according to that valid EPIC ID added to my profile.
 
-![**Extracted details of a random Person**](https://cdn-images-1.medium.com/max/2732/1*6izoRB4cWjN5zjdZTDYdJg.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2732/1*6izoRB4cWjN5zjdZTDYdJg.png">
+</p>
+<p align="center">
+  <strong>Extracted details of a random Person</strong></p>
+</p>
 
 ---
 
-* ## **Account takeover (OTP bypass)**
+<p align="center"><h2>Account takeover (OTP bypass)</h2></p>
 
 On the profile details updating section I was trying to add another user's number. So I created another account for it. But there was an OTP implanted there, and I tried to brute-force it but it didn’t work :( I remember reading an article last year, you can read it **[here](https://infosecwriteups.com/how-i-hacked-into-indias-top-matrimonial-website-and-earned-amazon-gift-card-worth-10k-inr-2a0b376219fa)**, where the author just added 0 after intercepting the request. And I did the same thing here on OTP parameter and it worked :)
 
-![intercepting traffic while OTP is verifying](https://cdn-images-1.medium.com/max/2740/1*q0TSMqdgsXTtzROWDo6y9g.png)
 
-![[Changed the OTP value to zero](https://infosecwriteups.com/how-i-hacked-into-indias-top-matrimonial-website-and-earned-amazon-gift-card-worth-10k-inr-2a0b376219fa)](https://cdn-images-1.medium.com/max/2000/1*eEVjGxhUUzdbv2vkHlExnw.png)
+
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2740/1*q0TSMqdgsXTtzROWDo6y9g.png">
+</p>
+<p align="center">
+  <strong>intercepting traffic while OTP is verifying</strong></p>
+</p>
+
+
+
+
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2000/1*eEVjGxhUUzdbv2vkHlExnw.png">
+</p>
+<p align="center">
+  <strong>Changed the OTP value to zero</strong></p>
+</p>
+
 
 After bypassing I thought it just can register the victim’s number then I’ll reset the password, But surprisingly on replacing the victim’s number my profile data automatically changed with the victim’s details, And I can own his account.
 
-![](https://cdn-images-1.medium.com/max/2740/1*az1-jwdyMLK1pOLWbA6ghA.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2740/1*az1-jwdyMLK1pOLWbA6ghA.png">
+</p>
 
 ---
 
-* ## **Delete/remove any random user’s Voter ID card Permanently (Logic flaw)**
+<p align="center"><h2>Delete/remove any random user’s Voter ID card Permanently (Logic flaw)</h2></p>
 
 From the 1st bug, we can get and add any random user’s Voter ID to our account, From that on the home page there is an option for “Deletion of Enrolment”. And nothing to be needed after an attacker added any random Voter ID on his profile section. then he can easily delete any random user’s Voter ID permanently.
 
-![An attacker can delete any random user’s card permanently](https://cdn-images-1.medium.com/max/2732/1*SvvI8ZoSelvF3-83BzQRTw.png)
+<p align="center">
+  <img src="https://cdn-images-1.medium.com/max/2732/1*SvvI8ZoSelvF3-83BzQRTw.png">
+</p>
+<p align="center">
+  <strong>An attacker can delete any random user’s card permanently</strong></p>
+</p>
+
+
 
 I reported these three issues to [vdisclose@cert-in.org.in](https://www.cert-in.org.in/VulnerIncident.jsp) and they fixed these issues.
 
