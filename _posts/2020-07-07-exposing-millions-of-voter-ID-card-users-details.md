@@ -9,7 +9,7 @@ tags: [IDOR, ATO]
 
 
 
-![](images/voter.webp)
+![](blog/images/voter.webp)
 
 
 
