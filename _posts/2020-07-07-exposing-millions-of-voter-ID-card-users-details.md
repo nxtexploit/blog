@@ -38,9 +38,7 @@ I added the payload position on these seven-digit numbers on `Epic_no=` paramete
 <p align="center">
   <img src="https://cdn-images-1.medium.com/max/2236/1*xz61EAZwEhSWlsDpMkJSSw.png">
 </p>
-<p align="center">
-  <strong>Adding payload position</strong></p>
-</p>
+<p align="center"> Adding payload position </p>
 
 
 Surprisingly there is no limitation implemented in the backend and I was able to send **unlimited requests** without getting blocked by firewall. As a result backend server responding 302 redirections for every valid voter ID. (As shown in the screenshot below)
@@ -50,7 +48,7 @@ Surprisingly there is no limitation implemented in the backend and I was able to
   <img src="https://cdn-images-1.medium.com/max/2740/1*dLe_eyFiPf9amQz0o50meQ.png">
 </p>
 <p align="center">
-  <strong>responding 302 for every valid voter ID</strong></p>
+  Responding 302 for every valid voter ID
 </p>
 
 
@@ -125,9 +123,7 @@ Now I have valid Voter IDs of random persons then, I added these IDs with my pro
 <p align="center">
   <img src="https://cdn-images-1.medium.com/max/2732/1*6izoRB4cWjN5zjdZTDYdJg.png">
 </p>
-<p align="center">
-  <strong>Extracted details of a random Person</strong></p>
-</p>
+<p align="center">Extracted details of a random Person</p>
 
 ---
 
@@ -140,9 +136,7 @@ On the profile details updating section I was trying to add another user's numbe
 <p align="center">
   <img src="https://cdn-images-1.medium.com/max/2740/1*q0TSMqdgsXTtzROWDo6y9g.png">
 </p>
-<p align="center">
-  <strong>intercepting traffic while OTP is verifying</strong></p>
-</p>
+<p align="center">intercepting traffic while OTP is verifying</p>
 
 
 
@@ -150,9 +144,7 @@ On the profile details updating section I was trying to add another user's numbe
 <p align="center">
   <img src="https://cdn-images-1.medium.com/max/2000/1*eEVjGxhUUzdbv2vkHlExnw.png">
 </p>
-<p align="center">
-  <strong>Changed the OTP value to zero</strong></p>
-</p>
+<p align="center">Changed the OTP value to zero</p>
 
 
 After bypassing I thought it just can register the victim’s number then I’ll reset the password, But surprisingly on replacing the victim’s number my profile data automatically changed with the victim’s details, And I can own his account.
@@ -171,8 +163,7 @@ From the 1st bug, we can get and add any random user’s Voter ID to our account
   <img src="https://cdn-images-1.medium.com/max/2732/1*SvvI8ZoSelvF3-83BzQRTw.png">
 </p>
 <p align="center">
-  <strong>An attacker can delete any random user’s card permanently</strong></p>
-</p>
+  An attacker can delete any random user’s card permanently</p>
 
 
 
