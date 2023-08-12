@@ -15,6 +15,7 @@ tags: [IDOR, ATO]
 *Hi, Everyone. hope you’re well. I’m [Aziz](https://twitter.com/nxtexploit). Through this write-up, I will share some security issues I’ve found on the official Voter ID card maintaining platform [http://nvsp.in](https://nvsp.in). I was filling out a correction form for my mom’s card, I’m not really interested in finding bugs on gov websites :`) that moment [burpsuite ](https://portswigger.net/burp/documentation/desktop/penetration-testing)was running in the background and I thought let's have a try. After spending half an hour I found some critical issues that I’m going to share. All these issues are already fixed by the government.*
 
 In India, a [Voter ID](https://www.google.com/search?q=what+is+voter+ID+%28india%29) card is an identity document issued by the Election Commission of India to adult domiciles of India who have reached the age of 18, which primarily serves as an identity proof for Indian citizens while casting their ballot in the country’s municipal, state, and national elections. More than **780 million** Voter IDs are active at present.
+
 ---
 <p align="center"><h2>Bruteforcing valid Voter IDs and extracting details (IDOR / BOLA)</h2></p>
 
