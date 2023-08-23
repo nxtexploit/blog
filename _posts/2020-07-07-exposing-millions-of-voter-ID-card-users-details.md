@@ -1,16 +1,16 @@
 ---
 layout: post
-title: Exposing Millions of Voter ID card users’ details.
+title: Exposing Millions of Voter ID card users’ details. 
 date: 2022-07-07
 summary: Three critical bugs in India's voter portal led to the exposure of voter ID card users' data, impacting millions of individuals.
 categories: VDP
 tags: [IDOR, ATO]
 ---
 
-<p align="right"> <img src="https://komarev.com/ghpvc/?username=voterpost&style=flat&color=lightgrey&label=Post+View" alt=cyan/> </p>
 <p align="center">
   <img src="/blog/images/voter.webp">
 </p>
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=voterpost&style=flat&color=lightgrey&label=views" alt=cyan/> </p>
 
 
 *Hi, Everyone. hope you’re well. I’m [Aziz](https://twitter.com/nxtexploit). Through this write-up, I will share some security issues I’ve found on the official Voter ID card maintaining platform [http://nvsp.in](https://nvsp.in). I was filling out a correction form for my mom’s card, I’m not really interested in finding bugs on gov websites :`) that moment [burpsuite ](https://portswigger.net/burp/documentation/desktop/penetration-testing)was running in the background and I thought let's have a try. After spending half an hour I found some critical issues that I’m going to share. All these issues are already fixed by the government.*
@@ -175,4 +175,5 @@ I hope you liked this article, If you have any questions then you can dm me on [
 Thanks for reading,
 
 **Aziz**
+
 
