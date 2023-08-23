@@ -11,11 +11,11 @@ Hello <img src="https://i.imgur.com/fZPfuNV.gif" width="20px">, I'm Aziz, a pene
 <p align="center">
 
   <a href="https://twitter.com/nxtexploit">
-    <img src="https://i.imgur.com/1ymoCCi.gif" alt="Twitter" width=40>
+    <img src="https://img.icons8.com/3d-fluency/94/twitter-circled.png" alt="Twitter" width=40>
   </a>
   &nbsp;
   <a href="https://linkedin.com/in/nxtexploit">
-    <img src="https://img.icons8.com/?size=512&id=MR3dZdlA53te&format=png" alt="LinkedIn" width=40>
+    <img src="https://img.icons8.com/3d-fluency/94/linkedin.png" alt="LinkedIn" width=40>
   </a>
   
 </p>
