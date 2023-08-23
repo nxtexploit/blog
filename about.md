@@ -5,8 +5,19 @@ permalink: /about/
 tags: about
 ---
 
-Hello👋, I'm Aziz Al Aman, a penetration tester with a robust background in Web, Mobile, and network pentesting, as well as Red Teaming. Over the past 2 years, I have identified security flaws in various companies through VDPs as well as bug bounty programs.
+Hello<img src="https://i.imgur.com/fZPfuNV.gif" width="29px">, I'm Aziz, a penetration tester with a robust background in Web, Mobile, and network pentesting, as well as Red Teaming. Over the past 2 years, I have identified security flaws in various companies through VDPs as well as bug bounty programs.
 
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nxtexploit)
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/nxtexploit)
+
+<p align="center">
+
+  <a href="https://twitter.com/nxtexploit">
+    <img src="https://i.imgur.com/1ymoCCi.gif" alt="Twitter" width=40>
+  </a>
+  &nbsp;
+  <a href="https://linkedin.com/in/nxtexploit">
+    <img src="https://img.icons8.com/?size=512&id=MR3dZdlA53te&format=png" alt="LinkedIn" width=40>
+  </a>
+  
+</p>
+
 
