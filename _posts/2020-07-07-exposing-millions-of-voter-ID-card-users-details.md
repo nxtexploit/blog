@@ -7,6 +7,7 @@ categories: VDP
 tags: [IDOR, ATO]
 ---
 
+<p align="right"> <img src="https://komarev.com/ghpvc/?username=voterpost&style=flat&color=lightgrey&label=Post+View" alt=cyan/> </p>
 <p align="center">
   <img src="/blog/images/voter.webp">
 </p>
@@ -174,3 +175,4 @@ I hope you liked this article, If you have any questions then you can dm me on [
 Thanks for reading,
 
 **Aziz**
+
