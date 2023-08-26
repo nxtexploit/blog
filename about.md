@@ -11,5 +11,5 @@ Hello <img src="https://i.imgur.com/fZPfuNV.gif" width="20px">, I'm Aziz, a pene
   <br>
 regards,
   <br>
-<img src="https://i.imgur.com/0fZIaXA.png" width=80>
+<img src="https://i.imgur.com/0fZIaXA.png" width=90>
 </p>
