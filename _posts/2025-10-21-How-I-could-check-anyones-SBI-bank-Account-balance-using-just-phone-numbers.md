@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How I could check anyone’s SBI bank balance using just phone numbers
+title: How I could check anyone’s SBI bank Account balance using just phone numbers.
 date: 2025-10-21
 summary: A parameter-tampering IDOR in a demat portal’s Get Balance workflow allowed unauthorized retrieval of account type and live Account balance by swapping the AccountNo value.
 categories: VDP
@@ -73,7 +73,7 @@ Cookie: JSESSIONID=YOUR_SESSION_ID
 User-Agent: Mozilla/5.0
 Referer: https://trade.sbisecurities.in/authenticate
 
-ClientId=400086XXXX&UserId=722XXX1&sClientType=IC&BankId=004&AccountNo=443854XXXXX&TransactionType=3&Flag=BL&Channel=I&Terminal=ITS&theForm=fundholdreleaseform&checkID=400086XXXX
+ClientId=400086XXXX&UserId=722XXX1&sClientType=IC&BankId=004&AccountNo=443854XXXXX&TransactionType=3&Flag=BL&Channel=I&Terminal=ITS&theForm=fundholdreleaseform&checkID=40008XXXXX
 ```
 
 
@@ -101,7 +101,7 @@ The response format `"S|5407.19"` indicates:
 
 ### Disclosure and Resolution:
 
-I responsibly disclosed this security flaw to **CERT-In** (https://www.cert-in.org.in/), and they coordinated with SBI to fix the issue.
+I responsibly disclosed this security flaw to [**CERT-In**](https://www.cert-in.org.in/), and they coordinated with SBI to fix the issue.
 
 ***
 
