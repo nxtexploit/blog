@@ -35,7 +35,7 @@ Getting Account details(Account Number): (still works)
 
 #### **Step 1:** Obtaining Account Details:
 
-The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that NSDL Payments Bank displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID.
+The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID.
 
 
 <p align="center">
@@ -47,11 +47,11 @@ The main challenge was obtaining the victim's account number. From an attacker's
 
 After logging into my demat account, I found a feature called "Get Balance" that fetches the bank account balance linked to the demat account. This feature had a critical flaw.
 
-The request contained a POST parameter &AccountNo=1234567890 that was vulnerable to IDOR. By replacing my account number with the victim's account number, the response revealed:
+The request contained a `POST` parameter `&AccountNo=1234567890` that was vulnerable to IDOR. By replacing my account number with the victim's account number, the response revealed:
 
 The victim's account balance
 
-Account type (S=Savings, C=Current)
+`Account type (S=Savings, C=Current)`
 
 <p align="center">
   <img src="/blog/images/sbi-dashboard.png">
