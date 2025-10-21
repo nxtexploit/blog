@@ -5,6 +5,7 @@ date: 2025-10-22
 summary: test critical bugs in India's voter portal led to the exposure of voter ID card users' data, impacting millions of individuals.
 categories: VDP
 tags: [IDOR,ATO]
+published: true
 ---
 
 
@@ -15,7 +16,7 @@ tags: [IDOR,ATO]
 
 Hello Bug Hunters,
 
-Hope your bounties💸 are treating you well. I’m [Aziz Al Aman](https://twitter.com/nxtexploit). Recently, I opened a bank account with SBI (I usually prefer private banks, but needed this for specific reasons). Like many government banks, they pushed additional services — insurance and a demat account. Not knowing these weren't mandatory, I declined insurance but agreed to open a demat account.
+Hope your bounties💸 are treating you well. Recently, I opened a bank account with SBI (I usually prefer private banks, but needed this for specific reasons). Like many government banks, they pushed additional services — insurance and a demat account. Not knowing these weren't mandatory, I declined insurance but agreed to open a demat account.
 
 The next day, I received my credentials via email and logged into my demat account. While exploring the platform, I noticed an interesting feature. Although I typically avoid testing assets that don't offer rewards (no money, no bugs), I figured this would only take 5 minutes to test.
 
