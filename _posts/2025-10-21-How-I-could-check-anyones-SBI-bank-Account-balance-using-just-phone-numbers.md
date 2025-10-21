@@ -105,7 +105,7 @@ I responsibly disclosed this security flaw to [**CERT-In**](https://www.cert-in.
 
 ***
 
-I hope you found this writeup informative. If you have any questions, feel free to reach out to me on [Twitter](https://twitter.com/nxtexploit).
+I hope you found this writeup informative. If you have any questions, feel free to reach out to me on [Linkedin](https://linkedin.com/in/nxtexploit).
 
 May God reward you with goodness and abundant bounties.
 
