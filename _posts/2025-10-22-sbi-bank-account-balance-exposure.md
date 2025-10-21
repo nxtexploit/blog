@@ -2,7 +2,7 @@
 layout: post
 title: How I Accidentally Peeked at Anyone’s SBI Bank Balance in 5 Minutes
 date: 2025-10-22
-summary: This writeup details a real-world IDOR in SBI Securities’ demat portal “Get Balance” workflow, where tampering the AccountNo request parameter enabled unauthorized retrieval of a different customer’s account type and balance, exemplifying a horizontal access control failure caused by direct object references tied to user-supplied identifiers in a high-impact financial context.
+summary: Three critical bugs in India's voter portal led to the exposure of voter ID card users' data, impacting millions of individuals.
 categories: VDP
 tags: [IDOR]
 ---
