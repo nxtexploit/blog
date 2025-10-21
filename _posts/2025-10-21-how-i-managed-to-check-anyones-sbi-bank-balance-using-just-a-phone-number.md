@@ -30,10 +30,10 @@ The vulnerability was an **Insecure Direct Object Reference (IDOR)** in the "Get
 
 ### Attack Prerequisites:
 
-Getting Account details(Account Number): (still works)
+Getting Account details(Account Number): 
 
 
-#### **Step 1:** Obtaining Account Details:
+#### **Step 1:** Obtaining Account Details:(still works)
 
 The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID.
 
