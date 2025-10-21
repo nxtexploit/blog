@@ -10,7 +10,7 @@ published: true
 
 
 <p align="center">
-  <img src="/blog/images/SBI-banner.jpg">
+  <img src="/blog/images/SBI-banner.png">
 </p>
 
 
