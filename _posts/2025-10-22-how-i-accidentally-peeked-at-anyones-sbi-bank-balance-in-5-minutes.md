@@ -4,7 +4,7 @@ title: How I Accidentally Peeked at Anyone’s SBI Bank Balance in 5 Minutes
 date: 2025-10-22
 summary: Three critical bugs in India's voter portal led to the exposure of voter ID card users' data, impacting millions of individuals.
 categories: VDP
-tags: [IDOR]
+tags: [IDOR,ATO]
 ---
 
 
