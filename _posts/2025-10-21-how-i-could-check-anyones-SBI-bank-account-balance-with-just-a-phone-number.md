@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How I could check anyone’s SBI bank Account balance using just phone numbers.
+title: How I Could Check Anyone’s SBI Bank Account Balance with Just a Phone Number
 date: 2025-10-21
 summary: A parameter-tampering IDOR in a demat portal’s Get Balance workflow allowed unauthorized retrieval of account type and live Account balance by swapping the AccountNo value.
 categories: VDP
