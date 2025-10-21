@@ -33,7 +33,7 @@ The vulnerability was an **Insecure Direct Object Reference (IDOR)** in the "Get
 Getting Account details(Account Number): (still works)
 
 
-##### **Step 1:** Obtaining Account Details:
+#### **Step 1:** Obtaining Account Details:
 
 The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that NSDL Payments Bank displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID.
 
@@ -43,7 +43,7 @@ The main challenge was obtaining the victim's account number. From an attacker's
 </p>
 
 
-##### **Step 2:** Exploiting the IDOR Vulnerability to Obtain the Account Balance:
+#### **Step 2:** Exploiting the IDOR Vulnerability to Obtain the Account Balance:
 
 After logging into my demat account, I found a feature called "Get Balance" that fetches the bank account balance linked to the demat account. This feature had a critical flaw.
 
