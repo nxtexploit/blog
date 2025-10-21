@@ -1,8 +1,8 @@
 ---
 layout: post
-title: testing
-date: 2025-10-22
-summary: test critical bugs in India's voter portal led to the exposure of voter ID card users' data, impacting millions of individuals.
+title: How I could check anyone’s SBI bank balance using just phone numbers
+date: 2025-10-21
+summary: A parameter-tampering IDOR in a demat portal’s Get Balance workflow allowed unauthorized retrieval of account type and live balance by swapping the AccountNo value, a textbook case of broken access control where user-supplied object identifiers are trusted without verifying session ownership or authorization on the server side, mirroring well-documented IDOR mechanics in access control failures.
 categories: VDP
 tags: [IDOR,ATO]
 published: true
