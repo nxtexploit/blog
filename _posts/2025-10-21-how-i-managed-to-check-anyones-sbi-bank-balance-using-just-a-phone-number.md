@@ -78,7 +78,7 @@ ClientId=400086XXXX&UserId=722XXX1&sClientType=IC&BankId=004&AccountNo=443854XXX
 
 ### Response:
 
-```http
+```yaml
 HTTP/2 200 OK
 Content-Type: application/json
 Content-Length: 37
@@ -90,7 +90,6 @@ Access-Control-Allow-Origin: https://trade.sbisecurities.in
 Set-Cookie: BIGipServertrade.sbisecurities.in={redacted}; HttpOnly; Secure
 
 {"code":"SUCCESS","data":"S|5407.19"}
-
 ```
 
 The response format `"S|5407.19"` indicates:
