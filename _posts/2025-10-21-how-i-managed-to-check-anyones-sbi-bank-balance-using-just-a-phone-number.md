@@ -16,11 +16,11 @@ published: true
 
 Hello Bug Hunters,
 
-Hope your bounties💸 are treating you well. Recently, I opened a bank account with SBI (I usually prefer private banks, but needed this for specific reasons). Like many government banks, they pushed additional services — insurance and a demat account. Not knowing these weren't mandatory, I declined insurance but agreed to open a demat account.
+Hope your bounties💸 are treating you well. Recently, I opened a bank account with SBI (I usually prefer private banks, but needed this for specific reasons). Like many government banks, they pushed additional add-ons — insurance and a demat account. Not knowing these weren't mandatory, I declined insurance but agreed to open a demat account.
 
 The next day, I received my credentials via email and logged into my demat account. While exploring the platform, I noticed an interesting feature. Although I typically avoid testing assets that don't offer rewards (no money, no bugs), I figured this would only take 5 minutes to test.
 
-In this writeup, I'll disclose a critical security flaw I discovered in SBI Bank's system that allowed me to check anyone's bank account balance using just their phone number and account number. (doesn't need to have a demat account)
+In this write-up, I'll disclose a critical security flaw I discovered in SBI Bank's system that allowed me to check anyone's bank account balance using just their phone number and account number. (doesn't need to have a demat account)
 
 
 
@@ -49,9 +49,7 @@ After logging into my demat account, I found a feature called "Get Balance" that
 
 The request contained a `POST` parameter `&AccountNo=1234567890` that was vulnerable to IDOR. By replacing my account number with the victim's account number, the response revealed:
 
-The victim's account balance
-
-`Account type (S=Savings, C=Current)`
+The victim's Account Balance & Account type `(S=Savings, C=Current)`
 
 <p align="center">
   <img src="/blog/images/sbi-dashboard.png">
