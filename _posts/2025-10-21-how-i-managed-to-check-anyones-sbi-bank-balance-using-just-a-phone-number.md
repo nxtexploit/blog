@@ -76,7 +76,6 @@ Referer: https://trade.sbisecurities.in/authenticate
 ClientId=400086XXXX&UserId=722XXX1&sClientType=IC&BankId=004&AccountNo=443854XXXXX&TransactionType=3&Flag=BL&Channel=I&Terminal=ITS&theForm=fundholdreleaseform&checkID=40008XXXXX
 ```
 
-
 ### Response:
 
 ```http
@@ -91,6 +90,7 @@ Access-Control-Allow-Origin: https://trade.sbisecurities.in
 Set-Cookie: BIGipServertrade.sbisecurities.in={redacted}; HttpOnly; Secure
 
 {"code":"SUCCESS","data":"S|5407.19"}
+
 ```
 
 The response format `"S|5407.19"` indicates:
