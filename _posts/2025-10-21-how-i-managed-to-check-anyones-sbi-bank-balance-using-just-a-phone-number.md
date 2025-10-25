@@ -35,7 +35,7 @@ Getting Account details(Account Number):
 
 #### **Step 1:** Obtaining Account Details:(still works)
 
-The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID.
+The main challenge was obtaining the victim's account number. From an attacker's perspective, bank account numbers aren't publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver's complete account details in transaction statements — including account number, IFSC code, and name — when you send money via phone number or UPI ID. So, to get the victim's account details, you have to send some money (e.g., ₹1).
 
 
 <p align="center">
