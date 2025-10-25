@@ -48,7 +48,7 @@ After logging into my demat account, I found a feature called "Get Balance" that
 
 The request contained a `POST` parameter `&AccountNo=1234567890` that was vulnerable to IDOR. By replacing my account number with the victim's account number, the response revealed:
 
-The victim's Account Balance & Account type `(S=Savings, C=Current)`
+The victim's `Account Balance` & Account type `(S=Savings, C=Current)`
 
 <p align="center">
   <img src="/blog/images/sbi-dashboard.png">
