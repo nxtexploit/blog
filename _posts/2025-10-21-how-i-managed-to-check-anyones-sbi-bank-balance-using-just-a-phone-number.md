@@ -20,13 +20,13 @@ Hope your bounties💸 are treating you well. Recently, I opened a bank account 
 
 The next day, I received my credentials via email and logged into my demat account. While exploring the platform, I noticed an interesting feature. Although I typically avoid testing assets that don't offer rewards (no money, no bugs), I figured this would only take 5 minutes to test.
 
-In this write-up, I'll disclose a critical security flaw I discovered in SBI Bank's system that allowed me to check anyone's bank account balance using just their phone number and account number. (doesn't need to have a demat account)
+In this write-up, I'll disclose a critical security flaw I discovered in SBI Bank's system that allowed me to check anyone's bank account balance using just their phone number and account number. (Victims don't need to have a demat account - I could check anyone's bank balance)
 
 
 
 ### Vulnerability Overview:
 
-The vulnerability was an **Insecure Direct Object Reference (IDOR)** in the "Get Balance" feature of the SBI Securities demat account portal. By manipulating the `AccountNo` parameter, I could retrieve the account balance of any SBI bank account. (doesn't need to have a demat account)
+The vulnerability was an **Insecure Direct Object Reference (IDOR)** in the “Get Balance” feature of the SBI Securities demat account portal. By manipulating the `AccountNo` parameter, I was able to retrieve the account balance of **any SBI bank account**, regardless of whether it had a demat account.
 
 ### Attack Prerequisites:
 
@@ -35,7 +35,7 @@ Getting Account details(Account Number):
 
 #### **Step 1:** Obtaining Account Details:(still works)
 
-The main challenge was obtaining the victim’s account number. From an attacker’s perspective, bank account numbers are not publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver’s full account details — including account number, IFSC code, and name — in transaction statements when you send money via a phone number or UPI ID. Practically, obtaining those details requires initiating a small transaction (for example, ₹1).
+The main challenge was obtaining the victim’s account number. From an attacker’s perspective, bank account numbers are not publicly available. However, I discovered that **NSDL Payments Bank** displays the receiver’s full account details, including the account number, IFSC code, and name, in transaction statements when money is sent via a phone number or UPI ID. Practically, obtaining these details requires initiating a small transaction, such as sending ₹1 to the victim.
 
 <p align="center">
   <img src="/blog/images/nsdl-statement.jpg">
